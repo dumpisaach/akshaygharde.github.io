@@ -14,44 +14,8 @@
             Download Resume
         </a>
     </div>
-    <!-- Load Supabase SDK -->
-<script src="https://unpkg.com/@supabase/supabase-js@2"></script>
 
-<script>
-  // Initialize Supabase
-  const supabase = createClient(
-    'https://lgceipzklpgnptokldzx.supabase.co',
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxnY2VpcHprbHBnbnB0b2tsZHp4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzkyMTQ4ODUsImV4cCI6MjA1NDc5MDg4NX0.Zxsm7kKkFqu3tF3N7AeUKn5AT8oKb4ISEiEjoIZ3WrQ'
-  );
 
-  // Track downloads
-  document.querySelector('.download-btn').addEventListener('click', async (e) => {
-    e.preventDefault();
-    
-    try {
-      // Get user IP
-      const ip = await fetch('https://api.ipify.org?format=json')
-        .then(res => res.json())
-        .then(data => data.ip);
 
-      // Insert download record
-      const { error } = await supabase
-        .from('resume_downloads')
-        .insert([{
-          user_ip: ip,
-          user_agent: navigator.userAgent,
-          referrer: document.referrer
-        }]);
-
-      // Trigger download
-      window.location.href = 'resume.pdf';
-      
-    } catch (err) {
-      console.error('Tracking failed:', err);
-      // Fallback download
-      window.location.href = 'resume.pdf';
-    }
-  });
-</script>
 </body>
 </html>
